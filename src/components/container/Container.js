@@ -1,19 +1,42 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useSpring, animated } from 'react-spring';
 
-import Heading from '../../ui/Heading';
-import SubHeading from '../../ui/SubHeading';
 import UploaderContainer from './UploaderContainer';
 
 const Container = () => {
+
+    const headingAnimation = useSpring({
+        from: {
+            opacity: 0,
+            transform: 'translateY(50px)',
+        },
+        to: {
+            opacity: 1,
+            transform: 'translateY(0px)'
+        },
+    })
+
+    const subHeadingAnimation = useSpring({
+        from: {
+            opacity: 0,
+            transform: 'translateY(50px)',
+        },
+        to: {
+            opacity: 1,
+            transform: 'translateY(0px)'
+        },
+        delay: 200
+    })
+    
     return (
         <ContainerWrapper>
-            <Heading width="60%" font="48px">
-                Host your files secure & fast with DropItHere
-            </Heading>
-            <SubHeading>
+            <AnimatedHeading  style={headingAnimation} width="60%" font="48px">
+                <animated.span >Host your files secure & fast with DropItHere</animated.span>
+            </AnimatedHeading>
+            <AnimatedSubHeading style={subHeadingAnimation}>
                 Grab your premium access today, check out our latest deal
-            </SubHeading>
+            </AnimatedSubHeading>
 
             <UploaderContainer></UploaderContainer>
         </ContainerWrapper>
@@ -39,4 +62,24 @@ const ContainerWrapper = styled.div`
     background-color: var(--secondary);
     border-radius: 50px;
 
+`;
+
+const AnimatedHeading = styled(animated.h1)`
+    width: ${props => props.width || '100%' };
+    margin-bottom: 30px;
+    font-family: 'Philosopher', sans-serif;
+    font-size: ${props => props.font || '32px'};
+    line-height: 1.4;
+    text-align: center;
+    color: var(--primary);
+`;
+
+
+const AnimatedSubHeading = styled(animated.p)`
+
+    font-family: 'Philosopher', sans-serif;
+    font-size: ${props => props.font || '28px'};
+    line-height: 1.4;
+    text-align: center;
+    color: var(--primary);
 `;
