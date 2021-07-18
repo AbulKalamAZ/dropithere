@@ -7,10 +7,10 @@ import Loader from '../ui/Loader';
 import Downloader from '../components/downloader/Downloader';
 import { fetchFilesFromStorage } from '../firebase/utils';
 
-const ImageRenderer = () => {
+const AudioRenderer = () => {
   const location = useLocation();
   const id = location.pathname.split('/')[2];
-  const [imgSource, setImgSource] = useState(null);
+  const [audioSource, setAudioSource] = useState(null);
   const [isFileLoaded, setIsFileLoaded] = useState(false);
 
   // Component did mount
@@ -19,28 +19,28 @@ const ImageRenderer = () => {
     // Fetching files
 
     fetchFilesFromStorage(id).then((res) => {
-      setImgSource(res);
+        setAudioSource(res);
       setIsFileLoaded(!isFileLoaded);
     });
   }, [id]);
 
   return (
-    <ImageContainer>
+    <AudioContainer>
       {isFileLoaded ? (
-        <img src={imgSource.value} alt='uploaded file' />
+        <audio src={audioSource.value} autoPlay controls />
       ) : (
         <Loader />
       )}
-      {isFileLoaded && <Downloader file={imgSource} />}
-    </ImageContainer>
+      {isFileLoaded && <Downloader file={audioSource} />}
+    </AudioContainer>
   );
 };
 
-export default ImageRenderer;
+export default AudioRenderer;
 
 // Styles
 
-const ImageContainer = styled.figure`
+const AudioContainer = styled.figure`
   width: 80%;
   min-height: 600px;
   margin: 50px auto;

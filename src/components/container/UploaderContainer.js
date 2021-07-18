@@ -47,7 +47,7 @@ const UploaderContainer = () => {
           setCardHeader('Uploading files info . .');
 
           // Get the data
-          const fileInfo = { type: file.type, value: url };
+          const fileInfo = { type: file.type, value: url, name: file.fileName };
 
           // Create a firestore refference
           const firestore = firebase.firestore();

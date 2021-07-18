@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { useLocation } from 'react-router-dom';
 
 import Loader from '../ui/Loader';
+import Downloader from '../components/downloader/Downloader';
 import { fetchFilesFromStorage } from '../firebase/utils';
 
 const VideoRenderer = () => {
@@ -32,6 +33,7 @@ const VideoRenderer = () => {
       ) : (
         <Loader />
       )}
+      {isFileLoaded && <Downloader fileURL={videoSource.value} />}
     </VideoContainer>
   );
 };
