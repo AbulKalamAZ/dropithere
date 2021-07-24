@@ -6,6 +6,7 @@
     "@testing-library/jest-dom": "^5.11.10",
     "@testing-library/react": "^11.2.6",
     "@testing-library/user-event": "^12.8.3",
+    "clipboard-polyfill": "^3.0.3",
     "eslint": "^7.29.0",
     "firebase": "^8.6.8",
     "js-file-download": "^0.4.12",

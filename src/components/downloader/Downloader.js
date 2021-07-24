@@ -1,20 +1,22 @@
 import React from 'react'
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
+import * as clipboard from "clipboard-polyfill/text";
 
 import DownloadIcon from '../icons/DownloadIcon';
 
-const FileDownloader = require('js-file-download');
-
 function Downloader({ file }) {
-    const handleDownload = (url, name) => {
-        console.log(url)
-        FileDownloader(url, name.toLowerCase());
+    const handleDownload = (url) => {
+        clipboard.writeText(url).then(
+            () => { console.log("success!"); },
+            () => { console.log("error!"); }
+        );
     }
-    console.log(file)
     return (
         <DownloaderWrapper 
-            onClick={() => handleDownload(file.value, file.name)}
+            type="button"
+            onClick={() => handleDownload(file.value)}
         >
+            <IconBG />
             <DownloadIcon />
         </DownloaderWrapper>
     )
@@ -24,26 +26,55 @@ export default Downloader
 
 // Styles
 
-const bounce = keyframes`
-    0%   { transform: scale(1,1)      translateY(0); }
-    10%  { transform: scale(1.1,.9)   translateY(0); }
-    30%  { transform: scale(.9,1.1)   translateY(-100px); }
-    50%  { transform: scale(1.05,.95) translateY(0); }
-    57%  { transform: scale(1,1)      translateY(-7px); }
-    64%  { transform: scale(1,1)      translateY(0); }
-    100% { transform: scale(1,1)      translateY(0); }
+const IconBG = styled.div`
+  width: 70px;  
+  height: 70px;
+  background-color: var(--primary);
+  border-radius: 50%;
+  position: absolute;
+  left: -15px;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  opacity: 0;
+  transform: scale(0.5);
+  transform-origin: center;
+  transition: all 250ms ease-out;
+    
 `;
-const DownloaderWrapper = styled.a`
-    width: 80px;
-    height: 80px;
+
+const DownloaderWrapper = styled.button`
+    width: 40px;
+    height: 40px;
+    border: none;
     cursor: pointer;
     position: fixed;
     bottom: 80px;
     right: 80px;
-    animation: ${bounce} 2s ease infinite;
-    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     svg {
-        width: 100%;
+        width: 40px;
         height: auto;
+        fill: var(--primary);
+        z-index: 1010;
+        transition: all 250ms ease-out;
+    }
+
+    &:hover {
+        ${IconBG} {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        svg {
+            fill: var(--secondary);
+        }
+    }
+
+    &:active {
+        transform: scale(.8);
     }
 `;
