@@ -3,12 +3,12 @@
 import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 import { useSpring, useTransition, animated } from 'react-spring';
-import { useLocation } from 'react-router-dom';
 
 import SubHeading from '../../ui/SubHeading';
 import Button from '../../ui/Button';
 import Loader from '../../ui/Loader';
 import firebase from '../../firebase/config';
+import { returnFileSize } from '../../firebase/utils';
 
 const UploaderContainer = () => {
   const location = window.location.href;
@@ -163,8 +163,8 @@ const ContainerWrapper = styled(animated.div)`
   padding: 30px;
   background-color: ${(props) =>
     props.isuploaded ? '#dadcec' : 'var(--white)'};
-  border-radius: 50px;
-  box-shadow: 26px 25px 50px -10px rgba(0, 0, 0, 0.15);
+  border-radius: 25px;
+  box-shadow: 10px 20px 30px -10px rgba(0, 0, 0, 0.3);
   cursor: pointer;
 `;
 

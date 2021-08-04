@@ -7,10 +7,10 @@ import Loader from '../ui/Loader';
 import Downloader from '../components/downloader/Downloader';
 import { fetchFilesFromStorage } from '../firebase/utils';
 
-const HTMLRenderer = () => {
+const TextRenderer = () => {
   const location = useLocation();
   const id = location.pathname.split('/')[2];
-  const [htmlSource, setHTMLSource] = useState(null);
+  const [textSource, setTextSource] = useState(null);
   const [isFileLoaded, setIsFileLoaded] = useState(false);
 
   // Component did mount
@@ -19,27 +19,24 @@ const HTMLRenderer = () => {
     // Fetching files
 
     fetchFilesFromStorage(id).then((res) => {
-        setHTMLSource(res);
-        setIsFileLoaded(!isFileLoaded);
+      setTextSource(res);
+      setIsFileLoaded(!isFileLoaded);
     });
   }, [id]);
 
   return (
     <HTMLContainer>
       {isFileLoaded ? (
-        <iframe 
-            src={htmlSource.value}
-            title="dropItHere HTML File"
-        ></iframe>
+        <iframe src={textSource.value} title='dropItHere HTML File'></iframe>
       ) : (
         <Loader />
       )}
-      {isFileLoaded && <Downloader fileURL={htmlSource.value} />}
+      {isFileLoaded && <Downloader file={textSource} />}
     </HTMLContainer>
   );
 };
 
-export default HTMLRenderer;
+export default TextRenderer;
 
 // Styles
 

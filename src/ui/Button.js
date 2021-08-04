@@ -27,7 +27,6 @@ export default Button;
 
 const Input = styled.input.attrs(() => ({
   type: 'file',
-  accept: 'audio/*, image/*, video/*, .html',
 }))`
   display: none;
 `;
